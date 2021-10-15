@@ -1,0 +1,3 @@
+pisoFoamPC.C
+
+EXE = $(FOAM_APPBIN)/pisoFoamPC
