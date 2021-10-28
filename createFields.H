@@ -1,9 +1,9 @@
-Info<< "Reading field p\n" << endl;
-volScalarField p
+Info<< "Reading field p0\n" << endl;
+volScalarField p0
 (
     IOobject
     (
-        "p",
+        "p0",
         runTime.timeName(),
         mesh,
         IOobject::MUST_READ,
@@ -12,12 +12,12 @@ volScalarField p
     mesh
 );
 
-Info<< "Reading field U\n" << endl;
-volVectorField U
+Info<< "Reading field p1\n" << endl;
+volScalarField p1
 (
     IOobject
     (
-        "U",
+        "p1",
         runTime.timeName(),
         mesh,
         IOobject::MUST_READ,
@@ -25,10 +25,9 @@ volVectorField U
     ),
     mesh
 );
-// For IGPC implementation and mode calculation, order p=1 (2 modes)
 
 Info<< "Reading field U0\n" << endl;
-volScalarField U0
+volVectorField U0
 (
     IOobject
     (
@@ -41,10 +40,8 @@ volScalarField U0
     mesh
 );
 
-// Field for velocity mode 1 
-
 Info<< "Reading field U1\n" << endl;
-volScalarField U1
+volVectorField U1
 (
     IOobject
     (
@@ -57,23 +54,80 @@ volScalarField U1
     mesh
 );
 
-// REMEMBER TO ADD P1 P0, BUT DECIDED TO GO FOR THE CODE INSTEAD
+Info<< "Reading field phi0" <<endl;
+surfaceScalarField phi0
+(
+    IOobject
+    (
+        "phi0",
+        runTime.timeName(),
+        mesh,
+        IOobject::READ_IF_PRESENT,
+        IOobject::AUTO_WRITE
+    ),
+    fvc::flux(U0)
+);
 
-#include "createPhi.H"
-
-
+Info<< "Reading field phi1" <<endl;
+surfaceScalarField phi1
+(
+    IOobject
+    (
+        "phi1",
+        runTime.timeName(),
+        mesh,
+        IOobject::READ_IF_PRESENT,
+        IOobject::AUTO_WRITE
+    ),
+    fvc::flux(U1)
+);
+//#include "createPhi.H"
 label pRefCell = 0;
 scalar pRefValue = 0.0;
-setRefCell(p, piso.dict(), pRefCell, pRefValue);
-mesh.setFluxRequired(p.name());
-
-
-singlePhaseTransportModel laminarTransport(U, phi);
-
-autoPtr<incompressible::turbulenceModel> turbulence
-(
-    incompressible::turbulenceModel::New(U, phi, laminarTransport)
-);
+setRefCell(p0, piso.dict(), pRefCell, pRefValue);
+mesh.setFluxRequired(p0.name());
+setRefCell(p1, piso.dict(), pRefCell, pRefValue);
+mesh.setFluxRequired(p1.name());
 
 #include "createMRF.H"
 #include "createFvOptions.H"
+
+// HAVE TO MODIFY THE CLASSES
+singlePhaseTransportModel laminarTransport0(U0, phi0, "nu0");
+singlePhaseTransportModel laminarTransport1(U1, phi1, "nu1");
+
+autoPtr<incompressible::turbulenceModel> turbulence0
+(
+    incompressible::turbulenceModel::New(U0, phi0, laminarTransport0, "turbulenceProperties",0)
+);
+autoPtr<incompressible::turbulenceModel> turbulence1
+(
+    incompressible::turbulenceModel::New(U1, phi1, laminarTransport1, "turbulenceProperties",1)
+);
+/*
+volScalarField nut0
+ (
+        IOobject
+         (
+             "nut0",
+             runTime.timeName(),
+             mesh,
+             IOobject::NO_READ,
+            IOobject::AUTO_WRITE
+        ),
+        turbulence0->nut()
+ );
+
+volScalarField nut1
+ (
+        IOobject
+         (
+             "nut1",
+             runTime.timeName(),
+             mesh,
+             IOobject::NO_READ,
+            IOobject::AUTO_WRITE
+        ),
+        turbulence1->nut()
+ );
+*/

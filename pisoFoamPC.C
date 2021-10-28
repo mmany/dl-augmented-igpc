@@ -53,7 +53,8 @@ int main(int argc, char *argv[])
     #include "createFields.H"
     #include "initContinuityErrs.H"
 
-    turbulence->validate();
+    turbulence0->validate();
+    turbulence1->validate();
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -63,21 +64,37 @@ int main(int argc, char *argv[])
     {
         Info<< "Time = " << runTime.timeName() << nl << endl;
 
-        #include "CourantNo.H"
+        #include "CourantNo0.H"
 
         // Pressure-velocity PISO corrector
         {
-            #include "UEqn.H"
+            #include "UEqn0.H"
 
             // --- PISO loop
             while (piso.correct())
             {
-                #include "pEqn.H"
+                #include "pEqn0.H"
             }
         }
 
-        laminarTransport.correct();
-        turbulence->correct();
+        //laminarTransport0.correct();
+        turbulence0->correct();
+	//nut0 = turbulence0->nut();
+	
+        // Pressure-velocity PISO corrector
+        {
+            #include "UEqn1.H"
+
+            // --- PISO loop
+            while (piso.correct())
+            {
+                #include "pEqn1.H"
+            }
+        }
+
+        //laminarTransport1.correct();
+        turbulence1->correct();
+	//nut1 = turbulence1->nut();
 
         runTime.write();
 
