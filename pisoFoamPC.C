@@ -77,8 +77,8 @@ int main(int argc, char *argv[])
             }
         }
 
-        //laminarTransport0.correct();
-        turbulence0->correct();
+        laminarTransport0.correct();
+        //turbulence0->correct();
 	//nut0 = turbulence0->nut();
 	
         // Pressure-velocity PISO corrector
@@ -92,8 +92,8 @@ int main(int argc, char *argv[])
             }
         }
 
-        //laminarTransport1.correct();
-        turbulence1->correct();
+        laminarTransport1.correct();
+        //turbulence1->correct();
 	//nut1 = turbulence1->nut();
 
         runTime.write();
