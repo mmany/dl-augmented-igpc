@@ -1,3 +1,58 @@
+Info<< "Reading field nut0\n" << endl;
+volScalarField nut0
+(
+    IOobject
+    (
+        "nut0",
+        runTime.timeName(),
+        mesh,
+        IOobject::MUST_READ,
+        IOobject::AUTO_WRITE
+    ),
+    mesh
+);
+
+Info<< "Reading field nut1\n" << endl;
+volScalarField nut1
+(
+    IOobject
+    (
+        "nut1",
+        runTime.timeName(),
+        mesh,
+        IOobject::MUST_READ,
+        IOobject::AUTO_WRITE
+    ),
+    mesh
+);
+Info<< "Reading field nu0\n" << endl;
+volScalarField nu0
+(
+    IOobject
+    (
+        "nu0",
+        runTime.timeName(),
+        mesh,
+        IOobject::MUST_READ,
+        IOobject::AUTO_WRITE
+    ),
+    mesh
+);
+
+Info<< "Reading field nu1\n" << endl;
+volScalarField nu1
+(
+    IOobject
+    (
+        "nu1",
+        runTime.timeName(),
+        mesh,
+        IOobject::MUST_READ,
+        IOobject::AUTO_WRITE
+    ),
+    mesh
+);
+
 Info<< "Reading field p0\n" << endl;
 volScalarField p0
 (
@@ -92,18 +147,17 @@ mesh.setFluxRequired(p1.name());
 #include "createMRF.H"
 #include "createFvOptions.H"
 
-// HAVE TO MODIFY THE CLASSES
-singlePhaseTransportModel laminarTransport0(U0, phi0, "nu0");
-singlePhaseTransportModel laminarTransport1(U1, phi1, "nu1");
-
-autoPtr<incompressible::turbulenceModel> turbulence0
-(
-    incompressible::turbulenceModel::New(U0, phi0, laminarTransport0, "turbulenceProperties",0)
-);
-autoPtr<incompressible::turbulenceModel> turbulence1
-(
-    incompressible::turbulenceModel::New(U1, phi1, laminarTransport1, "turbulenceProperties",1)
-);
+//singlePhaseTransportModel laminarTransport0(U0, phi0, "nu0");
+//singlePhaseTransportModel laminarTransport1(U1, phi1, "nu1");
+//
+//autoPtr<incompressible::turbulenceModel> turbulence0
+//(
+    //incompressible::turbulenceModel::New(U0, phi0, laminarTransport0, "turbulenceProperties",0)
+//);
+//autoPtr<incompressible::turbulenceModel> turbulence1
+//(
+    //incompressible::turbulenceModel::New(U1, phi1, laminarTransport1, "turbulenceProperties",1)
+//);
 /*
 volScalarField nut0
  (

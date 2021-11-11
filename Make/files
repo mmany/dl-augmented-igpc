@@ -1,3 +1,5 @@
-pisoFoamPC.C
+pisoFoamPC_CNN.C
+CNN/CNN.cpp
+CNN/Custom_normalizer.cpp
 
-EXE = $(FOAM_APPBIN)/pisoFoamPC
+EXE = $(FOAM_APPBIN)/pisoFoamPC_CNN

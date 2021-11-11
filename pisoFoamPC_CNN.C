@@ -33,12 +33,19 @@ Description
     - run-time selectable MRF and finite volume options, e.g. explicit porosity
 
 \*---------------------------------------------------------------------------*/
+// For CNN
+#include "CNN/CNN.h"
 
+#ifndef OPENFOAM_DEPENDENCY
+#define OPENFOAM_DEPENDENCY
 #include "fvCFD.H"
-#include "singlePhaseTransportModel.H"
-#include "turbulentTransportModel.H"
+#endif
+
+//#include "singlePhaseTransportModel.H"
+//#include "turbulentTransportModel.H"
 #include "pisoControl.H"
 #include "fvOptions.H"
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -53,8 +60,17 @@ int main(int argc, char *argv[])
     #include "createFields.H"
     #include "initContinuityErrs.H"
 
-    turbulence0->validate();
-    turbulence1->validate();
+    //turbulence0->validate();
+    //turbulence1->validate();
+
+    Info << "******************************" << endl;
+    Info << "@@@@@ Initializing CNN @@@@@@@" << endl;
+    Info << "******************************" << endl;
+
+    string model_path = "/Users/many/pytorch_CXX_test/common/torchscript_model.pt";
+    string inorm_path = "/Users/many/pytorch_CXX_test/common/inorm_order1.json";
+    string onorm_path = "/Users/many/pytorch_CXX_test/common/onorm_order1.json";
+    CNN cnn_instance(model_path, inorm_path, onorm_path);
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -77,7 +93,7 @@ int main(int argc, char *argv[])
             }
         }
 
-        laminarTransport0.correct();
+        //laminarTransport0.correct();
         //turbulence0->correct();
 	//nut0 = turbulence0->nut();
 	
@@ -92,9 +108,14 @@ int main(int argc, char *argv[])
             }
         }
 
-        laminarTransport1.correct();
+        //laminarTransport1.correct();
         //turbulence1->correct();
 	//nut1 = turbulence1->nut();
+	
+	//torch::Tensor input = cnn_instance.convertToTensor(U0, U1);
+	//torch::Tensor output = cnn_instance.predict(input);
+	//cnn_instance.updateFoamFieldChannelFlow(output, nut0, nut1;
+
 
         runTime.write();
 
