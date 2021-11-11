@@ -25,33 +25,22 @@ volScalarField nut1
     ),
     mesh
 );
-Info<< "Reading field nu0\n" << endl;
-volScalarField nu0
-(
-    IOobject
-    (
-        "nu0",
-        runTime.timeName(),
-        mesh,
-        IOobject::MUST_READ,
-        IOobject::AUTO_WRITE
-    ),
-    mesh
-);
 
-Info<< "Reading field nu1\n" << endl;
-volScalarField nu1
+Info << "Reading nu0 and nu1 values" << endl;
+IOdictionary transportProperties
 (
-    IOobject
-    (
-        "nu1",
-        runTime.timeName(),
-        mesh,
-        IOobject::MUST_READ,
-        IOobject::AUTO_WRITE
-    ),
-    mesh
-);
+ IOobject
+ (
+  "transportProperties",
+  runTime.constant(),
+  mesh,
+  IOobject::MUST_READ,
+  IOobject::NO_WRITE
+ )
+ );
+
+scalar nu0(readScalar(transportProperties.lookup("nu0")));
+scalar nu1(readScalar(transportProperties.lookup("nu1")));
 
 Info<< "Reading field p0\n" << endl;
 volScalarField p0
