@@ -60,6 +60,7 @@ int main(int argc, char *argv[])
     #include "createFields.H"
     #include "initContinuityErrs.H"
 
+    int count = 0;
     turbulence0->validate();
     turbulence1->validate();
 
@@ -67,9 +68,9 @@ int main(int argc, char *argv[])
     Info << "@@@@@ Initializing CNN @@@@@@@" << endl;
     Info << "******************************" << endl;
 
-    string model_path = "/Users/many/pytorch_CXX_test/common/torchscript_model.pt";
-    string inorm_path = "/Users/many/pytorch_CXX_test/common/inorm_order1.json";
-    string onorm_path = "/Users/many/pytorch_CXX_test/common/onorm_order1.json";
+    string model_path = "/Users/many/Desktop/Master_thesis/torchscript_models/CNN3_order1_36000_torchscript.pt";
+    string inorm_path = "/Users/many/Desktop/Master_thesis/torchscript_models/inp_normalizer_36000.json";
+    string onorm_path = "/Users/many/Desktop/Master_thesis/torchscript_models/out_normalizer_36000.json";
     CNN cnn_instance(model_path, inorm_path, onorm_path);
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
@@ -111,10 +112,11 @@ int main(int argc, char *argv[])
         //laminarTransport1.correct();
         //turbulence1->correct();
 	//nut1 = turbulence1->nut();
-	
-	torch::Tensor input = cnn_instance.convertToTensor(U0, U1);
-	torch::Tensor output = cnn_instance.predict(input);
-	cnn_instance.updateFoamFieldChannelFlow(output, nut0_cnn, nut1_cnn);
+	if (count>=40){
+		torch::Tensor input = cnn_instance.convertToTensor(U0, U1);
+		torch::Tensor output = cnn_instance.predict(input);
+		cnn_instance.updateFoamFieldChannelFlow(output, nut0_cnn, nut1_cnn);
+	}
 
 
         runTime.write();
@@ -122,6 +124,7 @@ int main(int argc, char *argv[])
         Info<< "ExecutionTime = " << runTime.elapsedCpuTime() << " s"
             << "  ClockTime = " << runTime.elapsedClockTime() << " s"
             << nl << endl;
+	count=count+1;
     }
 
     Info<< "End\n" << endl;
