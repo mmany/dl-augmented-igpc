@@ -1,9 +1,9 @@
-Info<< "Reading field nut0\n" << endl;
-volScalarField nut0
+Info<< "Reading field nut0_cnn\n" << endl;
+volScalarField nut0_cnn
 (
     IOobject
     (
-        "nut0",
+        "nut0_cnn",
         runTime.timeName(),
         mesh,
         IOobject::MUST_READ,
@@ -12,12 +12,12 @@ volScalarField nut0
     mesh
 );
 
-Info<< "Reading field nut1\n" << endl;
-volScalarField nut1
+Info<< "Reading field nut1_cnn\n" << endl;
+volScalarField nut1_cnn
 (
     IOobject
     (
-        "nut1",
+        "nut1_cnn",
         runTime.timeName(),
         mesh,
         IOobject::MUST_READ,
@@ -26,21 +26,7 @@ volScalarField nut1
     mesh
 );
 
-Info << "Reading nu0 and nu1 values" << endl;
-IOdictionary transportProperties
-(
- IOobject
- (
-  "transportProperties",
-  runTime.constant(),
-  mesh,
-  IOobject::MUST_READ,
-  IOobject::NO_WRITE
- )
- );
 
-scalar nu0(readScalar(transportProperties.lookup("nu0")));
-scalar nu1(readScalar(transportProperties.lookup("nu1")));
 
 Info<< "Reading field p0\n" << endl;
 volScalarField p0
@@ -136,17 +122,17 @@ mesh.setFluxRequired(p1.name());
 #include "createMRF.H"
 #include "createFvOptions.H"
 
-//singlePhaseTransportModel laminarTransport0(U0, phi0, "nu0");
-//singlePhaseTransportModel laminarTransport1(U1, phi1, "nu1");
-//
-//autoPtr<incompressible::turbulenceModel> turbulence0
-//(
-    //incompressible::turbulenceModel::New(U0, phi0, laminarTransport0, "turbulenceProperties",0)
-//);
-//autoPtr<incompressible::turbulenceModel> turbulence1
-//(
-    //incompressible::turbulenceModel::New(U1, phi1, laminarTransport1, "turbulenceProperties",1)
-//);
+singlePhaseTransportModel laminarTransport0(U0, phi0, "nu0");
+singlePhaseTransportModel laminarTransport1(U1, phi1, "nu1");
+
+autoPtr<incompressible::turbulenceModel> turbulence0
+(
+    incompressible::turbulenceModel::New(U0, phi0, laminarTransport0, "turbulenceProperties",0)
+);
+autoPtr<incompressible::turbulenceModel> turbulence1
+(
+    incompressible::turbulenceModel::New(U1, phi1, laminarTransport1, "turbulenceProperties",1)
+);
 /*
 volScalarField nut0
  (

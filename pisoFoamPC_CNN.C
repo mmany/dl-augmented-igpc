@@ -41,8 +41,8 @@ Description
 #include "fvCFD.H"
 #endif
 
-//#include "singlePhaseTransportModel.H"
-//#include "turbulentTransportModel.H"
+#include "singlePhaseTransportModel.H"
+#include "turbulentTransportModel.H"
 #include "pisoControl.H"
 #include "fvOptions.H"
 
@@ -60,8 +60,8 @@ int main(int argc, char *argv[])
     #include "createFields.H"
     #include "initContinuityErrs.H"
 
-    //turbulence0->validate();
-    //turbulence1->validate();
+    turbulence0->validate();
+    turbulence1->validate();
 
     Info << "******************************" << endl;
     Info << "@@@@@ Initializing CNN @@@@@@@" << endl;
@@ -112,9 +112,9 @@ int main(int argc, char *argv[])
         //turbulence1->correct();
 	//nut1 = turbulence1->nut();
 	
-	//torch::Tensor input = cnn_instance.convertToTensor(U0, U1);
-	//torch::Tensor output = cnn_instance.predict(input);
-	//cnn_instance.updateFoamFieldChannelFlow(output, nut0, nut1;
+	torch::Tensor input = cnn_instance.convertToTensor(U0, U1);
+	torch::Tensor output = cnn_instance.predict(input);
+	cnn_instance.updateFoamFieldChannelFlow(output, nut0_cnn, nut1_cnn);
 
 
         runTime.write();
