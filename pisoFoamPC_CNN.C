@@ -80,6 +80,10 @@ int main(int argc, char *argv[])
     while (runTime.loop())
     {
         Info<< "Time = " << runTime.timeName() << nl << endl;
+	forAll(U0, celli){
+		U0[celli].component(1) = 0;
+		U1[celli].component(1) = 0;
+	}
 
         #include "CourantNo0.H"
 
