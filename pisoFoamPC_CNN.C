@@ -72,6 +72,7 @@ int main(int argc, char *argv[])
     string inorm_path = "/Users/many/Desktop/Master_thesis/torchscript_models/inp_normalizer_3300.json";
     string onorm_path = "/Users/many/Desktop/Master_thesis/torchscript_models/out_normalizer_3300.json";
     CNN cnn_instance(model_path, inorm_path, onorm_path);
+    torch::NoGradGuard no_grad_guard;
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
