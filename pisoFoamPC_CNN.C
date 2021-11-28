@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
     #include "createFields.H"
     #include "initContinuityErrs.H"
 
-    //int count = 0;
+    int count = 0;
     turbulence0->validate();
     turbulence1->validate();
 
@@ -116,11 +116,12 @@ int main(int argc, char *argv[])
         //laminarTransport1.correct();
         //turbulence1->correct();
 	//nut1 = turbulence1->nut();
-	//if (count>=40){
+	if (count>=5){
 		torch::Tensor input = cnn_instance.convertToTensor(U0, U1);
 		torch::Tensor output = cnn_instance.predict(input);
+		output = cnn_instance.under_relaxation(0.1);
 		cnn_instance.updateFoamFieldChannelFlow(output, nut0_cnn, nut1_cnn);
-	//}
+	}
 
 
         runTime.write();
@@ -128,7 +129,7 @@ int main(int argc, char *argv[])
         Info<< "ExecutionTime = " << runTime.elapsedCpuTime() << " s"
             << "  ClockTime = " << runTime.elapsedClockTime() << " s"
             << nl << endl;
-	//count=count+1;
+	count=count+1;
     }
 
     Info<< "End\n" << endl;
