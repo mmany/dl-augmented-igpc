@@ -72,9 +72,9 @@ int main(int argc, char *argv[])
     Info << "@@@@@ Initializing CNN @@@@@@@" << endl;
     Info << "******************************" << endl;
 
-    string model_path = "/Users/many/Desktop/Master_thesis/torchscript_models/one_sim_3300_torchscript.pt";
-    string inorm_path = "/Users/many/Desktop/Master_thesis/torchscript_models/inp_normalizer_3300.json";
-    string onorm_path = "/Users/many/Desktop/Master_thesis/torchscript_models/out_normalizer_3300.json";
+    string model_path = "/Users/many/Desktop/Master_thesis/torchscript_models/one_sim_3300_augmented_20_batchnorm_dropout_torchscript.pt";
+    string inorm_path = "/Users/many/Desktop/Master_thesis/torchscript_models/inp_normalizer_3300_augmented_20_batchnorm_dropout.json";
+    string onorm_path = "/Users/many/Desktop/Master_thesis/torchscript_models/out_normalizer_3300_augmented_20_batchnorm_dropout.json";
     CNN cnn_instance(model_path, inorm_path, onorm_path);
     torch::NoGradGuard no_grad_guard;
 
