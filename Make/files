@@ -2,4 +2,4 @@ pisoFoamPC_CNN.C
 CNN/CNN.cpp
 CNN/Custom_normalizer.cpp
 
-EXE = $(FOAM_APPBIN)/pisoFoamPC_CNN_3323_augmented_20_UR001_dropout
+EXE = $(FOAM_APPBIN)/pisoFoamPC_CNN_257_150s_inter10_nointerp_UR001_batchnorm_dropout
