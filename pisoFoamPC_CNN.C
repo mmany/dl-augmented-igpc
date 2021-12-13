@@ -35,6 +35,7 @@ Description
 \*---------------------------------------------------------------------------*/
 // For CNN
 #include "CNN/CNN.h"
+#include "messageStream.H"
 
 #ifndef OPENFOAM_DEPENDENCY
 #define OPENFOAM_DEPENDENCY
@@ -60,10 +61,6 @@ int main(int argc, char *argv[])
     #include "createFields.H"
     #include "initContinuityErrs.H"
 
-    // Solver parameters
-    //int count = 0;
-    //int num_iter = 5;
-    float under_relaxation_factor = 0.01;
 
     turbulence0->validate();
     turbulence1->validate();
@@ -72,11 +69,19 @@ int main(int argc, char *argv[])
     Info << "@@@@@ Initializing CNN @@@@@@@" << endl;
     Info << "******************************" << endl;
 
-    string model_path = "/Users/many/Desktop/Master_thesis/torchscript_models/CNN3_order1_257_150s_batchnorm_dropout_torchscript.pt";
-    string inorm_path = "/Users/many/Desktop/Master_thesis/torchscript_models/inp_normalizer_CNN3_order1_257_150s_batchnorm_dropout.json";
-    string onorm_path = "/Users/many/Desktop/Master_thesis/torchscript_models/out_normalizer_CNN3_order1_257_150s_batchnorm_dropout.json";
+    // Reading CNN presets
+    #include "cnn_config.H"
+
+    string model_path = cnn_model_path; 
+    string inorm_path = input_normalizer_path; 
+    string onorm_path = output_normalizer_path; 
+
+    // Creating an instance of CNN object
     CNN cnn_instance(model_path, inorm_path, onorm_path);
     torch::NoGradGuard no_grad_guard;
+
+    float UR_factor = under_relaxation_factor;
+    Info << "Initial Under-Relaxation factor set to " << UR_factor << endl;
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
