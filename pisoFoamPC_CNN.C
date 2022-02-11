@@ -83,6 +83,7 @@ int main(int argc, char *argv[])
     float UR_factor = under_relaxation_factor;
     Info << "Initial Under-Relaxation factor set to " << UR_factor << endl;
 
+    cnn_instance.set_inlet_nut(nut0_cnn,0.0096); // Setting a custom value at the inlet face centers
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
     Info<< "\nStarting time loop\n" << endl;
@@ -90,10 +91,10 @@ int main(int argc, char *argv[])
     while (runTime.loop())
     {
         Info<< "Time = " << runTime.timeName() << nl << endl;
-	forAll(U0, celli){
-		U0[celli].component(1) = 0;
-		U1[celli].component(1) = 0;
-	}
+	//forAll(U0, celli){
+	//	U0[celli].component(1) = 0;
+	//	U1[celli].component(1) = 0;
+	//}
 
         #include "CourantNo0.H"
 
