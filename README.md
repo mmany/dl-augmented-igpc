@@ -3,7 +3,7 @@ A deep learning augmented solver in OpenFOAM built on top of the pisoFOAM solver
 
 Work in progress
 
-### To Do
+# To Do
 
 - [ ] Installation Process with cmake
 - [ ] Link dependency with libtorch
