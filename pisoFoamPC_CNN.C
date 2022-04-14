@@ -34,7 +34,7 @@ Description
 
 \*---------------------------------------------------------------------------*/
 // For CNN
-#include "CNN/InferenceEngine.h"
+#include "InferenceEngine/InferenceEngine.h"
 #include "messageStream.H"
 
 #ifndef OPENFOAM_DEPENDENCY
