@@ -1,9 +1,8 @@
 EXE_INC = \
-    -I/Users/many/wmake_pytorch_CXX_test/thirdparty/libtorch/include \
-    -I/Users/many/wmake_pytorch_CXX_test/thirdparty/libtorch/include/torch/csrc/api/include \
-    -I/Users/many/wmake_pytorch_CXX_test/src/CNN \
-    -I/Users/many/wmake_pytorch_CXX_test/src \
-    -I/Users/many/wmake_pytorch_CXX_test/thirdparty/json/include \
+    -I$(TORCH_LIBRARIES)/include \
+    -I$(TORCH_LIBRARIES)/include/torch/csrc/api/include \
+    -IInferenceEngine \
+    -I$(JSON_LIBRARIES)/include \
     -I$(LIB_SRC)/TurbulenceModels/turbulenceModels/lnInclude \
     -I$(LIB_SRC)/TurbulenceModels/incompressible/lnInclude \
     -I$(LIB_SRC)/transportModels \
@@ -13,7 +12,7 @@ EXE_INC = \
     -I$(LIB_SRC)/sampling/lnInclude \
 
 EXE_LIBS = \
-    -Wl,-rpath,/Users/many/wmake_pytorch_CXX_test/thirdparty/libtorch/lib /Users/many/wmake_pytorch_CXX_test/thirdparty/libtorch/lib/libtorch.dylib /Users/many/wmake_pytorch_CXX_test/thirdparty/libtorch/lib/libc10.dylib \
+    -Wl,-rpath,$(TORCH_LIBRARIES)/lib $(TORCH_LIBRARIES)/lib/libtorch.dylib $(TORCH_LIBRARIES)/lib/libc10.dylib \
     -lturbulenceModels \
     -lincompressibleTurbulenceModels \
     -lincompressibleTransportModels \
