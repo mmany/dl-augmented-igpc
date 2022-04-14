@@ -6,7 +6,7 @@ Work in progress
 ## To Do
 
 - [ ] Installation Process with cmake
-- [ ] Link dependency with libtorch
+- [x] Link dependency with libtorch
 - [ ] Test cases
 - [x] Linking with Inference framework in OpenFOAM
 
