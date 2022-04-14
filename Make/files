@@ -1,5 +1,5 @@
 pisoFoamPC_CNN.C
-CNN/CNN.cpp
-CNN/Custom_normalizer.cpp
+InferenceEngine/InferenceEngine.cpp
+InferenceEngine/CustomNormalizer.cpp
 
 EXE = $(FOAM_APPBIN)/pisoFoamPC_with_config_file_discretizations_100_50_no_constraint_wall
