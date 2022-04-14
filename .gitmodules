@@ -1,3 +1,3 @@
-[submodule "CNN"]
+[submodule "InferenceEngine"]
 	path = InferenceEngine
 	url = https://github.com/mmany/openfoam-pytorch-inference.git
