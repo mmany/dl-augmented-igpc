@@ -34,7 +34,7 @@ Description
 
 \*---------------------------------------------------------------------------*/
 // For CNN
-#include "CNN/CNN.h"
+#include "CNN/InferenceEngine.h"
 #include "messageStream.H"
 
 #ifndef OPENFOAM_DEPENDENCY
@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
     string onorm_path = output_normalizer_path; 
 
     // Creating an instance of CNN object
-    CNN cnn_instance(model_path, inorm_path, onorm_path);
+    InferenceEngine cnn_instance(model_path, inorm_path, onorm_path);
     torch::NoGradGuard no_grad_guard;
 
     float UR_factor = under_relaxation_factor;
