@@ -12,7 +12,11 @@ EXE_INC = \
     -I$(LIB_SRC)/sampling/lnInclude \
 
 EXE_LIBS = \
+<<<<<<< HEAD
     -Wl,-rpath,$(TORCH_PATH)/lib $(TORCH_PATH)/lib/libtorch.dylib $(TORCH_PATH)/lib/libc10.dylib \
+=======
+    -Wl,-rpath,$(TORCH_LIBRARIES)/lib $(TORCH_LIBRARIES)/lib/libtorch.dylib $(TORCH_LIBRARIES)/lib/libc10.dylib \
+>>>>>>> 5a8a9659c56568c691ea9e4eb5adc63f6292faac
     -lturbulenceModels \
     -lincompressibleTurbulenceModels \
     -lincompressibleTransportModels \
