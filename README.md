@@ -69,10 +69,11 @@ A test case is provided under the [test](./test) folder. The test case can be ru
 blockMesh
 pisoFoamPC_CNN
 ```
-The results are visualized using Paraview using:
+The results are visualized with Paraview using:
 ```shell
 paraFoam
 ```
+Inside Docker, Paraview is particularly slow. Paraview can be run outside Docker by creating a \*.foam (empty) file at the root of the test case folder and  by opening it from Paraview.
 
 ## To Do
 
