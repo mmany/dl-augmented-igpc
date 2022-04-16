@@ -34,7 +34,7 @@ Description
 
 \*---------------------------------------------------------------------------*/
 // For CNN
-#include "InferenceEngine/InferenceEngine.h"
+#include "InferenceEngine.h"
 #include "messageStream.H"
 
 #ifndef OPENFOAM_DEPENDENCY
@@ -62,8 +62,8 @@ int main(int argc, char *argv[])
     #include "initContinuityErrs.H"
 
 
-    turbulence0->validate();
-    turbulence1->validate();
+//    turbulence0->validate();
+//    turbulence1->validate();
 
     Info << "******************************" << endl;
     Info << "@@@@@ Initializing CNN @@@@@@@" << endl;
@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
     float UR_factor = under_relaxation_factor;
     Info << "Initial Under-Relaxation factor set to " << UR_factor << endl;
 
-    cnn_instance.set_inlet_nut(nut0_cnn,0.0096); // Setting a custom value at the inlet face centers
+    cnn_instance.set_inlet_nut(nut0,0.0096); // Setting a custom value at the inlet face centers
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
     Info<< "\nStarting time loop\n" << endl;
@@ -100,11 +100,13 @@ int main(int argc, char *argv[])
 
         // Pressure-velocity PISO corrector
         {
+	    Info << "Starting UEqn0\n";
             #include "UEqn0.H"
 
             // --- PISO loop
             while (piso.correct())
             {
+	    Info << "Starting PEqn0\n";
                 #include "pEqn0.H"
             }
         }
@@ -115,11 +117,13 @@ int main(int argc, char *argv[])
 	
         // Pressure-velocity PISO corrector
         {
+	    Info << "Starting UEqn1\n";
             #include "UEqn1.H"
 
             // --- PISO loop
             while (piso.correct())
             {
+	    Info << "Starting pEqn1\n";
                 #include "pEqn1.H"
             }
         }
@@ -131,7 +135,7 @@ int main(int argc, char *argv[])
 		torch::Tensor input = cnn_instance.convertToTensor(U0, U1);
 		torch::Tensor output = cnn_instance.predict(input);
 		output = cnn_instance.under_relaxation(under_relaxation_factor);
-		cnn_instance.updateFoamFieldChannelFlow(output, nut0_cnn, nut1_cnn);
+		cnn_instance.updateFoamFieldChannelFlow(output, nut0, nut1);
 	//}
 
 

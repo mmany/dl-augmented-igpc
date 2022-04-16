@@ -1,7 +1,8 @@
 EXE_INC = \
     -I$(TORCH_PATH)/include \
     -I$(TORCH_PATH)/include/torch/csrc/api/include \
-    -IInferenceEngine \
+    -IInferenceEngine/include \
+    -Iutility \
     -I$(JSON_PATH)/include \
     -I$(LIB_SRC)/TurbulenceModels/turbulenceModels/lnInclude \
     -I$(LIB_SRC)/TurbulenceModels/incompressible/lnInclude \
@@ -12,7 +13,7 @@ EXE_INC = \
     -I$(LIB_SRC)/sampling/lnInclude \
 
 EXE_LIBS = \
-    -Wl,-rpath,$(TORCH_PATH)/lib $(TORCH_PATH)/lib/libtorch.dylib $(TORCH_PATH)/lib/libc10.dylib \
+    -Wl,-rpath,$(TORCH_PATH)/lib $(TORCH_PATH)/lib/libtorch.so $(TORCH_PATH)/lib/libc10.so \
     -lturbulenceModels \
     -lincompressibleTurbulenceModels \
     -lincompressibleTransportModels \

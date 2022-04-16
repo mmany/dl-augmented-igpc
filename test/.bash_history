@@ -1,0 +1,4 @@
+ls
+./Allclean 
+ls
+exit

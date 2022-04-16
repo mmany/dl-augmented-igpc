@@ -1,0 +1,129 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  6
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      sample;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+type            sets;
+libs            ("libsampling.so");
+
+interpolationScheme cellPointFace;
+
+setFormat       raw;
+
+sets
+(
+    x0
+    {
+        type    lineCell;
+        axis    z;
+        start   ( 2.44e-2 0 -0.01);
+        end     ( 2.44e-2 0 3.0);
+    }
+
+    x1
+    {
+        type    lineCell;
+        axis    z;
+        start   ( 1 0 -0.01);
+        end     ( 1 0 3.01);
+    }
+
+    x2
+    {
+        type    lineCell;
+        axis    z;
+        start   ( 2.02 0 -0.01);
+        end     ( 2.02 0 3.01);
+    }
+
+    x3
+    {
+        type    lineCell;
+        axis    z;
+        start   ( 3 0 -0.01);
+        end     ( 3 0 3.01);
+    }
+
+    x4
+    {
+        type    lineCell;
+        axis    z;
+        start   ( 4.02 0 -0.01);
+        end     ( 4.02 0 3.01);
+    }
+
+    x5
+    {
+        type    lineCell;
+        axis    z;
+        start   ( 5 0 -0.01);
+        end     ( 5 0 3.01);
+    }
+
+    x6
+    {
+        type    lineCell;
+        axis    z;
+        start   ( 6.02 0 -0.01);
+        end     ( 6.02 0 3.01);
+    }
+
+    x7
+    {
+        type    lineCell;
+        axis    z;
+        start   ( 7.0 0 -0.01);
+        end     ( 7.0 0 3.01);
+    }
+
+    x8
+    {
+        type    lineCell;
+        axis    z;
+        start   ( 8.02 0 -0.01);
+        end     ( 8.02 0 3.01);
+    }
+
+    x9
+    {
+        type    lineCell;
+        axis    z;
+        start   ( 9 0 -0.01);
+        end     ( 9 0 3.01);
+    }
+
+    x10
+    {
+        type    lineCell;
+        axis    z;
+        start   ( 10 0 -0.01);
+        end     ( 10 0 3.01);
+    }
+    x01
+    {
+        type    lineCell;
+        axis    z;
+        start   ( 20 0 -0.01);
+        end     ( 20 0 3.01);
+    }
+
+);
+
+fields
+(
+    p0 U0 k epsilon nut0 yPlus
+); 
+
+// ************************************************************************* //

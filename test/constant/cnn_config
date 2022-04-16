@@ -1,0 +1,28 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  6
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location	"constant";
+    object      cnn_config;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+
+
+
+model_path "models_and_normalizers/testing_campaign3323_step_init_and_last-interpolation_step_5s_custom_loss_noise_no_regularization_torchscript.pt";
+input_normalizer_path "models_and_normalizers/normalizers/inp_normalizer_3323_step_init_and_last-interpolation_step_5s_custom_loss_noise_no_regularization.json";
+output_normalizer_path "models_and_normalizers/normalizers/out_normalizer_3323_step_init_and_last-interpolation_step_5s_custom_loss_noise_no_regularization.json";
+
+under_relaxation_factor 1;
+
+
+// ************************************************************************* //
