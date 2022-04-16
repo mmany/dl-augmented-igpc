@@ -92,6 +92,6 @@ If you encounter any issues during compiling or testing, please kindly report it
 Feel free to contact me directly on my email to say hi, or to tell me if this is useful for another project, it always feels nice to know that the work is useful.
 
 Contact: maheindrane.many@gmail.com
-Maheindrane Many
-M.Sc. in Aerospace
-Technical University of Munich
+Maheindrane Many  
+M.Sc. in Aerospace  
+Technical University of Munich   
