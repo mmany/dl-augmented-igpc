@@ -1,4 +1,0 @@
-ls
-./Allclean 
-ls
-exit
